@@ -1,6 +1,6 @@
 # Library Recommender Competition
 
-Github Repo: https://github.com/youli99/recommender-system (Video link inside the repo readme)
+Please see the video here: https://youtu.be/Ieyh8bF_p_I
 
 ## 1. Exploratory Data Analysis
 
@@ -22,13 +22,25 @@ I examined the distribution of interactions across users. The top 20 most active
 
 The accompanying bar chart illustrates this imbalance clearly, revealing a skewed distribution where the majority of users have relatively few interactions.
 
+![](https://github.com/youli99/recommender-system/blob/f48aae43d270c2274aca1ab83fe07d5f8fa1a571/img/p01.png)
+
 ### Item Popularity
 
 Similarly, item popularity was analyzed based on interaction frequency. The most popular item had 380 interactions, while the rest followed a gradual decline. This indicates potential trends or universally appealing items within the dataset. Such patterns are useful for implementing hybrid recommender models, where the semantic information of the books can be used.
 
+![](https://github.com/youli99/recommender-system/blob/f48aae43d270c2274aca1ab83fe07d5f8fa1a571/img/p02.png)
+
 ### Temporal Interaction Patterns
 
 A line chart was plotted to show the total number of interactions per day. The data reveals clear temporal trends, including noticeable peaks and a gradual decline in activity over time. While these trends may not be directly leveraged in our final model, they highlight the potential value of incorporating temporal features during the modeling process.
+
+![](https://github.com/youli99/recommender-system/blob/f48aae43d270c2274aca1ab83fe07d5f8fa1a571/img/p03.png)
+
+### User-Item Interaction Heatmap (Sampled)
+
+This heatmap shows a sampled user-item interaction matrix, including the top 20 users and top 20 items based on interaction frequency. The result clearly illustrates the sparsity of interactions, which is a common characteristic in recommender system datasets.
+
+![](https://github.com/youli99/recommender-system/blob/f48aae43d270c2274aca1ab83fe07d5f8fa1a571/img/p04.png)
 
 ## 2. Data augmentation
 
@@ -147,3 +159,25 @@ The given dataset was first sorted by user and timestamp. The first 80\% of the 
 | Recall@10    | 0.2907       | 0.2640       | 0.2955         | 0.2290                  | 0.3180 | 0.3469                 |
 | MAP@10       | 0.1576       | 0.1443       | 0.1681         | 0.1320                  | 0.1772 | 0.1958                 |
 | Kaggle Score | 0.1241       | --           | --             | 0.0166                  | 0.1674 | 0.1964                 |
+
+I ranked first in the final kaggle contest!
+
+## 4. File structure
+
+**Codes for model**
+- 1_clean_items_table.ipynb: The codes to clean the items table, especially the title and the author field
+- 2_dataset_division.ipynb: The codes to separate the training and test set
+- 3_item_openai.ipynb: The codes to call OpenAI API
+- 4_seq_model.ipynb: The model for sequencial patterns
+- 5_find_best_for_kaggle.ipynb: The codes to generate results to upload on kaggle
+- 6_generate_results_for_report.ipynb: The codes to generate results used in the report
+- map_10.py: The two functions to calculate MAP@10
+- transformer_checkpoint.pt: The trained parameters of the model for sequencial patterns
+
+**Codes for UI**
+- data: Contains the data needed to run the UI. **Three files are missing due to large size** (score_cf_normalized.npy, score_hybrid_full.npy, score_semantic_normalized.npy), which record the prediction matrix.
+- pages: Contains the pages in the UI.
+- utils:
+  - BookInfoGetter.py: Contains the class to get book info, including the book covers
+  - HistoryGetter.py: Contains the class to get user history
+  - Recommender.py: Contains the class to generate recommendations for the UI
